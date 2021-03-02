@@ -3,12 +3,15 @@ const path = require('path');
 const mysql = require("mysql");
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const upload = require('express-fileupload')
+
 
 dotenv.config({
     path: './.env'
 })
 
 const app = express();
+
 
 const db = mysql.createConnection({
     host: process.env.HOST,
@@ -29,6 +32,8 @@ app.use(cookieParser());
 
 app.set('view engine', 'hbs');
 
+
+
 db.connect(function(err){
     if (err) {
         console.log('DB Error');
@@ -36,6 +41,9 @@ db.connect(function(err){
         return false;
     }
 });
+
+app.use(upload())
+
 
 app.use('/', require('./routes/pages.js'));
 

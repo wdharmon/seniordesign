@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 
+
 const db = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.DATABASE_USER,
@@ -86,3 +87,23 @@ exports.register = (req, res) => {
 
 }
 
+exports.AccountSettings = (req, res) => {
+    console.log('test AccountSettings');
+}
+
+exports.Messages = (req, res) => {
+    console.log('test Messages');
+
+}
+
+exports.news = (req, res) => {
+    console.log('test news');
+
+    
+    }
+
+exports.MyCreations = (req, res) => {
+    console.log('test MyCreations');
+    
+    }
+    
