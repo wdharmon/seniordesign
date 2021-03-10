@@ -30,5 +30,8 @@ router.get('/MyCreations', (req,res) => {
     res.render('MyCreations');
 });
 
+router.get('/landingpage', (req, res) => {
+    res.render('landingpage');
+});
 
 module.exports = router;

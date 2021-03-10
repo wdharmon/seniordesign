@@ -16,4 +16,6 @@ router.post('/news', authController.news);
 
 router.post('/MyCreations', authController.MyCreations);
 
+router.post('/landingpage', authController.landingpage);
+
 module.exports = router;

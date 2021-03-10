@@ -16,7 +16,7 @@ const app = express();
 const db = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
+    password: 'CODSNIPER26$',
     database: process.env.DATABASE
 });
 
@@ -44,6 +44,23 @@ db.connect(function(err){
 
 app.use(upload())
 
+
+app.post('/', (req, res) => {
+    if (req.files){
+        console.log(req.files)
+        var file = req.files.file
+        var filename = file.name
+        console.log(filename)
+
+        file.mv('./uploads/'+filename,function (err){
+            if (err){
+                res.send(err)
+            } else{
+                res.send("File Uploaded")
+            }
+        })
+    }
+})
 
 app.use('/', require('./routes/pages.js'));
 

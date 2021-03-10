@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const db = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
+    password: 'CODSNIPER26$',
     database: process.env.DATABASE
 });
 
@@ -106,4 +106,8 @@ exports.MyCreations = (req, res) => {
     console.log('test MyCreations');
     
     }
+
+exports.landingpage = (req, res) => {
+    console.log('test landingpage');
+}
     
