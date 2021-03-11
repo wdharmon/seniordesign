@@ -16,7 +16,7 @@ const app = express();
 const db = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.DATABASE_USER,
-    password: 'CODSNIPER26$',
+    password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE
 });
 
