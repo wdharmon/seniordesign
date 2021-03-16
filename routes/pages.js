@@ -1,37 +1,28 @@
 const express = require('express');
 
+const pagesController = require('../controllers/pages');
+
 const router = express.Router();
 
-router.get('/', (req,res) => {
-    res.render('index');
-})
+router.get('/', pagesController.index);
 
-router.get('/register', (req,res) => {
-    res.render('register');
-});
+router.get('/register', pagesController.register);
 
-router.get('/login', (req,res) => {
-    res.render('login');
-});
+router.get('/login', pagesController.login);
 
-router.get('/Messages', (req,res) => {
-    res.render('Messages');
-});
+router.get('/Messages', pagesController.Messages);
 
-router.get('/news', (req,res) => {
-    res.render('news');
-});
+router.get('/news', pagesController.news);
 
-router.get('/AccountSettings', (req,res) => {
-    res.render('AccountSettings');
-});
+router.get('/AccountSettings', pagesController.AccountSettings);
 
-router.get('/MyCreations', (req,res) => {
-    res.render('MyCreations');
-});
+router.get('/MyCreations', pagesController.MyCreations);
 
-router.get('/landingpage', (req, res) => {
-    res.render('landingpage');
-});
+router.get('/landingpage', pagesController.landingpage);
+
+router.get('/video', pagesController.video);
+
+router.post('/', pagesController.Upload);
+
 
 module.exports = router;
