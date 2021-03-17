@@ -1,8 +1,10 @@
 # Prequisites
 ## GitHub
 > Fork Repository
+1) Navigate to [https://github.com/wdharmon/seniordesign](https://github.com/wdharmon/seniordesign)
+2) Click the ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png)
+Clone Repository
 
-> Clone Repository
 ```bash
 git clone https://github.com/kkatayama/seniordesign.git
 ```
