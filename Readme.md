@@ -1,8 +1,8 @@
 # Prequisites
 ## GitHub
-Fork Repository
-1) Navigate to [https://github.com/wdharmon/seniordesign](https://github.com/wdharmon/seniordesign)
-2) Click the ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png) button to initiate a **Fork**
+1. Fork Repository
+  a) Navigate to [https://github.com/wdharmon/seniordesign](https://github.com/wdharmon/seniordesign)
+  b) Click the ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png) button to initiate a **Fork**
 
 Clone Repository
 > change `kkatayama` with your github username
