@@ -60,7 +60,7 @@ function getJwtToken(cookie) {
         }
 
     }
-    console.log('token = ' + token);
+    console.log('jwt-token = ' + token);
     return token;
 }
 
@@ -171,9 +171,10 @@ exports.Upload = (req, res) => {
                                 */
                                 exec(`bin/ffmpeg -i "uploads/${file_name}" -ss 00:00:02.00 -r 1 -an -vframes 1 -f mjpeg "public/thumbs/${thumbnail}"`, (error, stdout, stderr) => {
                                     if (error) { return; }
-                                    console.log(file_name);
-                                    console.log(thumbnail);
-                                    console.log(stdout);
+                                    console.table({
+                                        video_file: `"uploads/${file_name}"`,
+                                        video_thumb: `"public/thumbs/${thumbnail}"`
+                                    });
                                     return res.send("File Uploaded");
                                 });
                                 //return res.sen("File Uploaded");
@@ -194,7 +195,7 @@ exports.video = (req, res) => {
     const assets = 'uploads';
     const videoName = decodeURIComponent(req.params.vname); //'SpongeBob SquarePants - S12E20 - The Ghost of Plankton.mp4';//''movie.mp4';
     const filePath = `${assets}/${videoName}`;
-    console.table(filePath);
+    console.log("video_stream: " + filePath);
 
     fs.stat(filePath, (err, stat) => {
 

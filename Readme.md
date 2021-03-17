@@ -1,3 +1,12 @@
+# Demo of Updates
+I made some updates to your Beauty.IO application
+DEMO:
+![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/complete_demo.gif](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/complete_demo.gif)
+## Enabled Features
+* `Login` and `Register` buttons are now visible
+* Profile shows `NOT LOGGED IN!` or `User's Name` when logged in.
+* 
+
 # Prequisites
 These are the steps I took to setup my environment and run your web server
 1) Setup GitHub
