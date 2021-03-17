@@ -82,3 +82,21 @@ mysql> CREATE TABLE videos (filename VARCHAR(255), thumbnail VARCHAR(255), name 
 mysql> exit
 Bye
 ```
+
+## 3. Running the Web Server
+Go back to you shell and navigate to the **seniordesign** directory you had `git clone` in *Step 1.*
+### Navigate to `seniordesign` directory
+```bash
+cd seniordesign
+```
+
+### Install node packages missing from your system
+```bash
+npm install
+```
+
+### Run the Web Server
+```bash
+nodemon app.js
+```
+
