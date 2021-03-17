@@ -2,17 +2,29 @@
 I made some updates to your Beauty.IO application
 DEMO:
 ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/complete_demo.gif](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/complete_demo.gif)
-## Enabled Features
-* `Login` and `Register` buttons are now visible
-* Profile shows `NOT LOGGED IN!` or `User's Name` when logged in.
-* 
 
-# Prequisites
+## Enabled Features
+* `Login` and `Register` buttons are visible under ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/login_register.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/login_register.png)
+* Profile shows **NOT LOGGED IN!** or **User's Name** when logged in.
+* `Upload` div only displayed for **logged-in users**
+* MySQL `videos` table contains details for each uploaded video (filename, thumbnail, name, email, etc.)
+* `video` div displays **thumbnail** and **uploader name** for each video 
+
+# NOTES
+* Files I made changes to include the comment `TEDDY EDIT`
+* Moved the **GET** requests from `app.js` to `controllers/pages.js` and `routes/pages.js`, both referenced by `pagesController`
+* Added a `videos` table to MySQL Database
+* I did not do a complete "error handling" for most callback functions (for you to finish)
+* I assumed that only **logged-in users** should be allowed to upload videos
+* added a `.gitignore`
+* added `public/thumbs` and `public/notes` directories
+
+# SETUP
 These are the steps I took to setup my environment and run your web server
 1) Setup GitHub
 2) Setup MySQL Database
 3) Running The Web Server
-4) Creating a Pull Request
+4) Making Changes and Creating a Pull Request
 
 ## 1. GitHub
 ### Fork Repository
@@ -108,4 +120,26 @@ npm install
 ```bash
 nodemon app.js
 ```
+
+## 4. Making Changes and Creating a Pull Request
+### Creating a Branch for making edits
+If you plan on making edits, doing them in a branch isolates your changes and helps with migration
+> In this case, I created a branch `teddy_test` to make my changes
+
+```bash
+git checkout -b teddy_test
+```
+
+### Add files, Commit changes, and Push the changes to your repo
+> After making your changes, run these commands and add a description
+```bash
+git add -A && git commit -am 'updated the Readme' && git push origin teddy_test
+```
+
+### Creating the Pull Request
+Navigate to your github forked repository and you will see a `Compare & pull request` button.
+![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/pull_request_notice.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/pull_request_notice.png)
+
+Click the ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/pull_request.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/pull_request.png).
+Enter a Description for the changes you made and submit the request :)
 
