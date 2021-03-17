@@ -1,12 +1,18 @@
 # Prequisites
-## GitHub
-* Fork Repository
+These are the steps I took to setup my environment and run your web server
+1) Setup GitHub
+2) Setup MySQL Database
+3) Running The Web Server
+4) Creating a Pull Request
 
-  ** Navigate to [https://github.com/wdharmon/seniordesign](https://github.com/wdharmon/seniordesign)
-  ** Click the ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png) button to initiate a **Fork**
+## 1) GitHub
+### Fork Repository
+* Navigate to [https://github.com/wdharmon/seniordesign](https://github.com/wdharmon/seniordesign)
+* Click the ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png) button to initiate a **Fork**
 
-Clone Repository
+### Clone Repository
 > change `kkatayama` with your github username
+> in a shell, execute the following command
 ```bash
 git clone https://github.com/kkatayama/seniordesign.git
 ```
