@@ -165,7 +165,18 @@ exports.Upload = (req, res) => {
                             if (error){
                                 console.log(error);
                             } else {
-                                return res.send("File Uploaded");
+                                /* CREATE THUMBNAIL
+                                   - IF THIS DOESN'T WORK, COMMENT OUT THE exec() statement AND UNCOMMENT //return res.sen("File Uploaded");
+                                   - EVERYTHING EXCEPT: return res.send("File Uploaded");
+                                */
+                                exec(`bin/ffmpeg -i "uploads/${file_name}" -ss 00:00:02.00 -r 1 -an -vframes 1 -f mjpeg "public/thumbs/${thumbnail}"`, (error, stdout, stderr) => {
+                                    if (error) { return; }
+                                    console.log(file_name);
+                                    console.log(thumbnail);
+                                    console.log(stdout);
+                                    return res.send("File Uploaded");
+                                });
+                                //return res.sen("File Uploaded");
                             }
                         });
                     }

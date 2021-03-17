@@ -14,7 +14,7 @@
 
 
 
-    <style>Z
+    <style>
      html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
     </style>
     <body class="w3-theme-l3">
@@ -155,10 +155,10 @@
                         <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
                             <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
                             <span class="w3-right w3-opacity">32 min</span>
-                            <h4>Jane Doe</h4><br>
+                            <h4>{{this.name}}</h4><br>
                             <hr class="w3-clear">
                             <p>Have you seen this?!</p>
-                            <video controls width="100%">
+                            <video controls width="100%" poster="thumbs/{{this.thumbnail}}">
                                 <source src="http://localhost:3000/video/{{this.filename}}" type="video/mp4">
 
                                 Your browser does not support the video tag.
@@ -166,20 +166,6 @@
                         </div>
 
                     {{/each}}
-
-                    <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                        <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                        <span class="w3-right w3-opacity">32 min</span>
-                        <h4>Jane Doe</h4><br>
-                        <hr class="w3-clear">
-                        <p>Have you seen this?!</p>
-                        <video controls width="100%">
-                            <source src="http://localhost:3000/video" type="video/mp4">
-
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
 
 
                     <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
