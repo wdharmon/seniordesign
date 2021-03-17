@@ -20,7 +20,7 @@ router.get('/MyCreations', pagesController.MyCreations);
 
 router.get('/landingpage', pagesController.landingpage);
 
-router.get('/video', pagesController.video);
+router.get('/video/:vname', pagesController.video);
 
 router.post('/', pagesController.Upload);
 

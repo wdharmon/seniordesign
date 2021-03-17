@@ -44,10 +44,6 @@ db.connect(function(err){
 app.use(upload());
 
 /* TEDDY EDIT: using pagesController (modeled after authController) */
-// app.use('/', require('./routes/pages'));
-
-
-
 app.use('/', require('./routes/pages'));
 
 app.use('/auth', require('./routes/auth'));

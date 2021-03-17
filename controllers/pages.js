@@ -1,7 +1,8 @@
-const mysql = require("mysql2");
+const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 //const upload = require('express-fileupload');
+const path      = require('path');
 const fs        = require('fs');
 const { exec }  = require('child_process');
 
@@ -12,6 +13,31 @@ const db = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE
 });
+
+function getDateTime() {
+    /* Custom Function to Generate the Current Date Time
+       Format:
+           YEAR_MONTH_DAY_HOUR_MIN_SEC
+       Returns:
+           NodeJS string - (example: 2021_03_16_08_22_01)
+    */
+    var date = new Date();
+
+    var hour = date.getHours();
+    var min  = date.getMinutes();
+    var sec  = date.getSeconds();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day  = date.getDate();
+
+    hour = (hour < 10 ? "0" : "") + hour;
+    min = (min < 10 ? "0" : "") + min;
+    sec = (sec < 10 ? "0" : "") + sec;
+    month = (month < 10 ? "0" : "") + month;
+    day = (day < 10 ? "0" : "") + day;
+
+    return year + "_" + month + "_" + day + "_" + hour + "_" + min + "_" + sec;
+}
 
 function getJwtToken(cookie) {
     /* Extract JWT Token from the Request.Headers.Cookie
@@ -40,6 +66,7 @@ function getJwtToken(cookie) {
 
 function getJwtData(jwt_token) {
     /* Decode JWT encoded data from jwt_token
+
        Args:
            Requires - jwt_token (str) - the jwt_token string (hint: extacted from the cookies)
        Returns:
@@ -50,65 +77,36 @@ function getJwtData(jwt_token) {
     });
 }
 
-function getUserInfo(jwt_data, callback) {
-    /* Get the user information from the USERS database using the jwt token encoded id
-
-       Args:
-           Requires - jwt_token (str) - the jwt_token string (hint: extacted from the cookies)
-       Returns:
-           callback(NodeJS Object)
-    */
-    var user_data = {};
-    db.query('SELECT * FROM users WHERE id = ?', [jwt_data.id], async(error, results) => {
-
-        return callback(results[0]);
-    });
-    // const results = db.query('SELECT * FROM users WHERE id = ?', [jwt_data.id]);
-    // return results[0];
-    // query.on('result', function(row) {
-    //     //console.table(results[0]);
-    //     callback(null, row);
-    //     // return callback(results[0]);
-    // });
-
-    // db.query('SELECT * FROM users WHERE id = ?', [jwt_data.id], async(error, results) => {
-    //     var user_data = {
-    //         name: results[0].name,
-    //         email: results[0].email,
-    //         id: results[0].id
-    //     };
-    //     // user_data["name"] = results[0]["name"];
-    //     // user_data["email"] = results[0]["email"];
-    //     // user_data["id"] = results[0]["id"];
-    //     console.log('in db.query()');
-    //     console.table(user_data);
-    //     return user_data;
-    // });
-}
-
 exports.index = (req,res) => {
-    console.log('\nin index...');
     // passed jwt token
-    var jwt_token = getJwtToken(req.headers.cookie);
-    var jwt_data = getJwtData(jwt_token);
+    if (req.headers.cookie) {
+        var jwt_token = getJwtToken(req.headers.cookie);
+        var jwt_data = getJwtData(jwt_token);
 
-    db.query('SELECT * FROM users WHERE id = ?', [jwt_data.id], async(error, results) => {
-        var user_data = results[0];
-        console.table(user_data);
-        return res.render('index', {profile_name: user_data.name});
-    });
+        console.table(jwt_data);
+        db.query('SELECT * FROM users WHERE id = ?', [jwt_data.id], async(error, results) => {
+            if (!results.length) {
+                return res.render('index', { logged_in: false, profile_name: "BAD COOKIE" });
+            } else {
+                var user_data = results[0];
+                console.table(user_data);
 
-    console.table(jwt_data);
-    // getUserInfo(jwt_data, function(data) {
-    //     console.table(data);
-    //     user_data = data;
-    //     return data;
-    // });
-    // // console.log('jwt-token = ' + jwt_token);
-    // console.log(req);
-    // return res.render('index', {
-    //     profile_name: "TEST PROFILE"
-    // });
+                db.query('SELECT * FROM videos;', async(error2, results2) => {
+                    var videos = results2;
+                    console.table(videos);
+
+                    return res.render('index', {
+                        logged_in: true,
+                        profile_name: user_data.name,
+                        video_list: videos
+                    });
+                });
+            }
+        });
+    } else {
+        return res.render('index', { logged_in: false, profile_name: "NOT LOGGED IN!" });
+    }
+
 };
 
 exports.register = (req,res) => {
@@ -140,21 +138,42 @@ exports.landingpage = (req, res) => {
 };
 
 exports.Upload = (req, res) => {
-    console.log('Uploading...');
-    console.log(req.file);
-    if (req.files){
-        console.log(req.files);
-        var file = req.files.file;
-        var filename = file.name;
-        console.log(filename);
+    if (req.headers.cookie) {
+        var jwt_token = getJwtToken(req.headers.cookie);
+        var jwt_data = getJwtData(jwt_token);
+        console.table(jwt_data);
 
-        file.mv('./uploads/'+filename,function (err){
-            if (err){
-                return res.send(err);
-            } else{
-                return res.send("File Uploaded");
+        db.query('SELECT * FROM users WHERE id = ?', [jwt_data.id], async(error, results) => {
+            var user_data = results[0];
+            console.table(user_data);
+
+            if (req.files) {
+                console.log('Uploading...');
+                console.log(req.files);
+                var file = req.files.file;
+                var file_ext = path.extname(file.name);
+                var file_name = user_data.id + "_" + file.name.replace(file_ext, "_" + getDateTime() + file_ext);
+                var thumbnail = file_name.replace(file_ext, '.jpg');
+
+                file.mv('./uploads/'+file_name,function (err){
+                    if (err){
+                        return res.send(err);
+                    } else{
+                        db.query('INSERT INTO videos SET ?', {
+                            filename: file_name, thumbnail: thumbnail, name: user_data.name, email: user_data.email, userid: user_data.id
+                        }, (error, results2) => {
+                            if (error){
+                                console.log(error);
+                            } else {
+                                return res.send("File Uploaded");
+                            }
+                        });
+                    }
+                });
             }
         });
+    } else {
+        return res.send("NOT LOGGED IN!");
     }
 };
 
@@ -162,11 +181,11 @@ exports.Upload = (req, res) => {
 
 exports.video = (req, res) => {
     const assets = 'uploads';
-    const videName = 'movie';
+    const videoName = decodeURIComponent(req.params.vname); //'SpongeBob SquarePants - S12E20 - The Ghost of Plankton.mp4';//''movie.mp4';
+    const filePath = `${assets}/${videoName}`;
+    console.table(filePath);
 
-    const path = `${assets}/${videName}.mp4`;
-
-    fs.stat(path, (err, stat) => {
+    fs.stat(filePath, (err, stat) => {
 
         // Handle file not found
         if (err !== null && err.code === 'ENOENT') {
@@ -185,13 +204,13 @@ exports.video = (req, res) => {
             const end = parts[1] ? parseInt(parts[1], 10) : fileSize-1;
 
             const chunksize = (end-start)+1;
-            const file = fs.createReadStream(path, {start, end});
+            const file = fs.createReadStream(filePath, {start, end});
             const head = {
                 'Content-Range': `bytes ${start}-${end}/${fileSize}`,
                 'Accept-Ranges': 'bytes',
                 'Content-Length': chunksize,
                 'Content-Type': 'video/mp4',
-            }
+            };
 
             res.writeHead(206, head);
             return file.pipe(res);
@@ -199,10 +218,10 @@ exports.video = (req, res) => {
             const head = {
                 'Content-Length': fileSize,
                 'Content-Type': 'video/mp4',
-            }
+            };
 
             res.writeHead(200, head);
-            return fs.createReadStream(path).pipe(res);
+            return fs.createReadStream(filePath).pipe(res);
         }
     });
 };

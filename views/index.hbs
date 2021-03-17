@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <li><a href="/login">Login</a></li>
-    <li><a href="/register">Register</a></li>
+    <!-- <li><a href="/login">Login</a></li> -->
+    <!-- <li><a href="/register">Register</a></li> -->
 
 
 
@@ -133,6 +133,7 @@
                 </div>
                 <!-- Middle Column -->
                 <div class="w3-col m7">
+                    {{#if logged_in}}
                     <div class="w3-row-padding">
                         <div class="w3-col m12">
                             <div class="w3-card w3-round w3-white">
@@ -147,7 +148,24 @@
                             </div>
                         </div>
                     </div>
+                    {{/if}}
 
+
+                    {{#each video_list}}
+                        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                            <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+                            <span class="w3-right w3-opacity">32 min</span>
+                            <h4>Jane Doe</h4><br>
+                            <hr class="w3-clear">
+                            <p>Have you seen this?!</p>
+                            <video controls width="100%">
+                                <source src="http://localhost:3000/video/{{this.filename}}" type="video/mp4">
+
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+
+                    {{/each}}
 
                     <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
                         <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
