@@ -18,34 +18,34 @@ git clone https://github.com/kkatayama/seniordesign.git
 ```
 
 ## 2. MySQL Database
-> Start MySQL Shell With Root
+### Start MySQL Shell With Root
 
 ```bash
 mysql -u root
 ```
 
-> Create `beautyio` user
+### Create `beautyio` user
 
 ```mysql
 mysql> CREATE USER 'beautyio'@'localhost' IDENTIFIED WITH mysql_native_password BY 'CODSNIPER26$';
 Query OK, 0 rows affected (0.01 sec)
 ```
 
-> Give `beautyio` user root access
+### Give `beautyio` user root access
 
 ```mysql
 mysql> GRANT ALL PRIVILEGES ON * . * TO 'beautyio'@'localhost';
 Query OK, 0 rows affected (0.01 sec)
 ```
 
-> Reload Permissions
+### Reload Permissions
 
 ```mysql
 mysql> FLUSH PRIVILEGES;
 Query OK, 0 rows affected (0.01 sec)
 ```
 
-> Exit MySQL Shell and test **beautyio** user
+### Exit MySQL Shell and test **beautyio** user
 
 ```mysql
 mysql> exit
@@ -55,25 +55,25 @@ Bye
 mysql -u'beautyio' -p'CODSNIPER26$'
 ```
 
-> Create Database `beautyio`
+### Create Database `beautyio`
 ```mysql
 mysql> CREATE DATABASE beautyio;
 Query OK, 1 row affected (0.01 sec)
 ```
 
-> Connect to the Database `beautyio`
+### Connect to the Database `beautyio`
 ```mysql
 mysql> USE beautyio;
 Database changed
 ```
 
-> Create `users` Table
+### Create `users` Table
 ```mysql
 mysql> CREATE TABLE users (name VARCHAR(64), email VARCHAR(255), password VARCHAR(255), create_time VARCHAR(32), id INT NOT NULL PRIMARY KEY AUTO_INCREMENT);
 Query OK, 0 rows affected (0.05 sec)
 ```
 
-> Create `videos` Table and exit
+### Create `videos` Table and exit
 ```mysql
 mysql> CREATE TABLE videos (filename VARCHAR(255), thumbnail VARCHAR(255), name VARCHAR(64), email VARCHAR(255), userid INT, videoid INT NOT NULL PRIMARY KEY AUTO_INCREMENT);
 ```
