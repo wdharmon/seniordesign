@@ -7,9 +7,35 @@ const bcrypt = require('bcryptjs');
 const db = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.DATABASE_USER,
-    password: 'CODSNIPER26$',
+    password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE
 });
+
+
+function getDateTime() {
+    /* Custom Function to Generate the Current Date Time
+       Format:
+       YEAR_MONTH_DAY_HOUR_MIN_SEC
+       Returns:
+       NodeJS string - (example: 2021_03_16_08_22_01)
+    */
+    var date = new Date();
+
+    var hour = date.getHours();
+    var min  = date.getMinutes();
+    var sec  = date.getSeconds();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day  = date.getDate();
+
+    hour = (hour < 10 ? "0" : "") + hour;
+    min = (min < 10 ? "0" : "") + min;
+    sec = (sec < 10 ? "0" : "") + sec;
+    month = (month < 10 ? "0" : "") + month;
+    day = (day < 10 ? "0" : "") + day;
+
+    return year + "_" + month + "_" + day + "_" + hour + "_" + min + "_" + sec;
+}
 
 exports.login = async (req,res) => {
     try {
@@ -73,7 +99,7 @@ exports.register = (req, res) => {
         let hashedPassword = await bcrypt.hash(password, 8);
         console.log(hashedPassword);
 
-        db.query('INSERT INTO users SET ?', {name: name, email: email, password: hashedPassword }, (error,results) => {
+        db.query('INSERT INTO users SET ?', {name: name, email: email, password: hashedPassword, create_time: getDateTime() }, (error,results) => {
             if(error){
                 console.log(error);
             } else {
