@@ -1,6 +1,6 @@
 # Prequisites
 ## GitHub
-1. Fork Repository
+* Fork Repository
   a) Navigate to [https://github.com/wdharmon/seniordesign](https://github.com/wdharmon/seniordesign)
   b) Click the ![https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png](https://raw.githubusercontent.com/kkatayama/seniordesign/teddy_test/public/notes/fork.png) button to initiate a **Fork**
 
