@@ -104,7 +104,7 @@ exports.index = (req,res) => {
             }
         });
     } else {
-        return res.render('index', { logged_in: false, profile_name: "NOT LOGGED IN!" });
+        return res.render('landingpage', { logged_in: false, profile_name: "NOT LOGGED IN!" });
     }
 
 };
@@ -136,6 +136,10 @@ exports.MyCreations = (req,res) => {
 exports.landingpage = (req, res) => {
     return res.render('landingpage');
 };
+
+exports.logout = (req, res) => {
+    return res.render('logout');
+}
 
 exports.Upload = (req, res) => {
     if (req.headers.cookie) {
@@ -176,7 +180,7 @@ exports.Upload = (req, res) => {
                                     console.log(stdout);
                                     return res.send("File Uploaded");
                                 });
-                                //return res.sen("File Uploaded");
+                                return res.send("File Uploaded");
                             }
                         });
                     }

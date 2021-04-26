@@ -18,4 +18,6 @@ router.post('/MyCreations', authController.MyCreations);
 
 router.post('/landingpage', authController.landingpage);
 
+router.post('/logout', authController.logout);
+
 module.exports = router;

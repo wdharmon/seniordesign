@@ -137,3 +137,7 @@ exports.landingpage = (req, res) => {
     console.log('test landingpage');
 }
     
+exports.logout = (req, res) => {
+    console.log('test logout');
+}
+    
